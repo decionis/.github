@@ -6,8 +6,8 @@
 
 *Before AI acts, Decionis decides.*
 
-[![License](https://img.shields.io/badge/license-Apache--2.0-1f6feb)](https://github.com/decionis)
-[![Status](https://img.shields.io/badge/status-public_beta-ff8c00)](https://decionis.com/?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery)
+[![License](https://img.shields.io/badge/license-Apache--2.0-1f6feb)](https://github.com/decionis/.github/blob/master/LICENSE)
+[![Status](https://img.shields.io/badge/status-live-brightgreen)](https://decionis.com/?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery)
 [![Verdicts](https://img.shields.io/badge/verdicts-%3C120ms-2ea043)](https://decionis.com/docs?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery)
 [![Docs](https://img.shields.io/badge/docs-decionis.com-blue)](https://decionis.com/docs?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery)
 [![Playground](https://img.shields.io/badge/playground-board.decionis.com-8250df)](https://board.decionis.com/?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery)
