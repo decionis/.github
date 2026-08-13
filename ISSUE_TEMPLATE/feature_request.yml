@@ -16,10 +16,11 @@ body:
       label: "Package"
       description: "Which Decionis package should this land in?"
       options:
-        - "mcp — Agent Tool Control (MCP server)"
         - "govern — CI/CD Action Gate"
-        - "sdk — Application SDK"
-        - "verify — Offline Dossier Verifier"
+        - "mcp — Agent Tool Control (MCP server)"
+        - "presence-go — Presence Go SDK and CLI"
+        - "presence-swift — Presence Swift SDK"
+        - "kong-plugin-presence — Kong Gateway plugin"
         - "new package / cross-cutting"
     validations:
       required: true

@@ -22,7 +22,7 @@ Closes #<!-- issue number, if any -->
 
 - [ ] **Tests pass locally** — run this repo's test suite (see its README / CONTRIBUTING notes) and all checks are green.
 - [ ] I added or updated tests covering this change.
-- [ ] **Dossier verification (if applicable)** — this change touches verdict evaluation, signing, or dossier output, and I ran the offline verifier (`npx @decionis/verify`) against a dossier produced by this branch: determinism and signatures are intact. *(Skip if your change cannot affect decision output.)*
+- [ ] **Dossier verification (if applicable)** — this change touches verdict evaluation, signing, or dossier output, and I verified a dossier produced by this branch (open its `verify-url`, or use the [dossier verification page](https://decionis.com/verify/decision-dossiers?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery)): determinism and signatures are intact. *(Skip if your change cannot affect decision output.)*
 - [ ] **Documentation updated** — README, docs site, or inline reference reflects any behaviour change.
 - [ ] No secrets, tokens, or private dossier payloads in code, fixtures, or logs.
 - [ ] Commit messages follow [Conventional Commits](https://www.conventionalcommits.org) (e.g. `fix(sdk): handle ESCALATE timeout`).

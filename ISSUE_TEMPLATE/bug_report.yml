@@ -18,10 +18,11 @@ body:
       label: "Package"
       description: "Which Decionis package is affected?"
       options:
-        - "mcp — Agent Tool Control (MCP server)"
         - "govern — CI/CD Action Gate"
-        - "sdk — Application SDK"
-        - "verify — Offline Dossier Verifier"
+        - "mcp — Agent Tool Control (MCP server)"
+        - "presence-go — Presence Go SDK and CLI"
+        - "presence-swift — Presence Swift SDK"
+        - "kong-plugin-presence — Kong Gateway plugin"
         - "other / not sure"
     validations:
       required: true
@@ -31,7 +32,7 @@ body:
     attributes:
       label: "Package version"
       description: "The npm version, Action tag, or CLI `--version` output."
-      placeholder: "e.g. @decionis/sdk 0.4.2 or decionis/govern@v1"
+      placeholder: "e.g. decionis/govern@v1.9.3 or presence-go v0.2.0"
     validations:
       required: true
 
