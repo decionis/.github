@@ -1,0 +1,106 @@
+name: "🐛 Bug report"
+description: "Something in a Decionis package is broken or behaving unexpectedly."
+title: "[bug]: "
+labels:
+  - "bug"
+  - "needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug — a reproducible bug is a fixable bug.
+
+        > ⚠️ **Security issues:** please do **not** open a public issue. Email **security@decionis.com** instead — see our [security policy](https://github.com/decionis/.github/blob/master/SECURITY.md).
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: "Package"
+      description: "Which Decionis package is affected?"
+      options:
+        - "mcp — Agent Tool Control (MCP server)"
+        - "govern — CI/CD Action Gate"
+        - "sdk — Application SDK"
+        - "verify — Offline Dossier Verifier"
+        - "other / not sure"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: "Package version"
+      description: "The npm version, Action tag, or CLI `--version` output."
+      placeholder: "e.g. @decionis/sdk 0.4.2 or decionis/govern@v1"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: "What happened?"
+      description: "What did you do, what did you expect, and what actually happened?"
+      placeholder: "When the policy returned ESCALATE, the Action exited 0 instead of pausing the job…"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Minimal reproduction"
+      description: "The smallest config, snippet, or workflow that reproduces the issue. **Redact secrets and tokens.**"
+      render: shell
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: "Where is it running?"
+      description: "The environment surface where the bug occurs."
+      options:
+        - "GitHub Actions"
+        - "Other CI (GitLab, Jenkins, CircleCI, …)"
+        - "MCP client (Claude, Cursor, or another agent runtime)"
+        - "Server / backend application"
+        - "Local CLI"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: "Environment"
+      description: "OS, runtime, and relevant versions."
+      value: |
+        - OS:
+        - Runtime (Node / Python / other):
+        - Runner or client (e.g. ubuntu-24.04, Claude Desktop):
+        - Network constraints (proxy / air-gapped):
+    validations:
+      required: false
+
+  - type: input
+    id: dossier
+    attributes:
+      label: "Decision Dossier ID (if applicable)"
+      description: "The dossier ID from the verdict involved. Never paste the full payload of a private dossier."
+      placeholder: "dsr_…"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Relevant log output"
+      description: "Automatically formatted as code — no backticks needed. **Redact secrets.**"
+      render: shell
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: "Pre-flight checklist"
+      options:
+        - label: "I searched existing issues and this has not been reported yet."
+          required: true
+        - label: "This is not a security vulnerability (those go to security@decionis.com)."
+          required: true

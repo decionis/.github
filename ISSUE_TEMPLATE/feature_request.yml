@@ -1,0 +1,87 @@
+name: "✨ Feature request"
+description: "Propose an enhancement to a Decionis package, policy capability, or integration."
+title: "[feat]: "
+labels:
+  - "enhancement"
+  - "needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping shape Decionis! For policy templates you'd like to share with the community, also check the [Policy Exchange](https://decionis.com/policy-exchange?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery).
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: "Package"
+      description: "Which Decionis package should this land in?"
+      options:
+        - "mcp — Agent Tool Control (MCP server)"
+        - "govern — CI/CD Action Gate"
+        - "sdk — Application SDK"
+        - "verify — Offline Dossier Verifier"
+        - "new package / cross-cutting"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Category"
+      description: "What kind of enhancement is this?"
+      options:
+        - "New policy capability (conditions, verdict logic, escalation rules)"
+        - "New integration or connector"
+        - "Developer experience (CLI, error messages, docs)"
+        - "Performance / latency"
+        - "Dossier format / verification"
+        - "Other"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: "Target environment"
+      description: "Where would this run?"
+      options:
+        - "GitHub Actions / CI pipelines"
+        - "MCP clients / agent runtimes"
+        - "Server / backend applications"
+        - "Local CLI"
+        - "Multiple / other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "What problem are you solving?"
+      description: "Describe the workflow moment where Decionis gets in your way or leaves a gap. Real examples beat abstractions."
+      placeholder: "Our agents need per-tool spending limits, but policies can currently only gate by tool name…"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: "Proposed solution"
+      description: "What should happen instead? Sketch the API, policy syntax, or workflow you'd want."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives considered"
+      description: "Workarounds you've tried, or other designs you rejected and why."
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: "Pre-flight checklist"
+      options:
+        - label: "I searched existing issues and this has not been proposed yet."
+          required: true
+        - label: "I'm willing to open a pull request for this."
+          required: false
