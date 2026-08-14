@@ -1,0 +1,157 @@
+name: Discovery check
+
+# Org-wide guard for machine-discovery assets (llms.txt / llms-full.txt).
+#
+# It catches the two failure modes that silently break AI-assistant and
+# developer discovery: a malformed or missing llms.txt, and links that point at
+# hosts or paths which no longer exist. A dead host in a discovery file is
+# invisible in review — nothing renders, nothing errors, the reference is just
+# wrong forever.
+#
+# Call it from any repo:
+#
+#   jobs:
+#     discovery:
+#       uses: decionis/.github/.github/workflows/discovery-check.yml@master
+#
+# Hard failures: missing/empty llms.txt, no H1, no summary line, a link whose
+# host does not resolve, or a link returning 404/410. Everything else that could
+# be transient or bot-protection (401/403/405/429/5xx/timeouts) is reported as a
+# warning so CI does not go red on someone else's outage.
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: "Directory containing llms.txt, relative to the repo root."
+        required: false
+        type: string
+        default: "."
+      check-links:
+        description: "Verify that every URL in llms.txt resolves."
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  discovery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate discovery assets
+        env:
+          TARGET_DIR: ${{ inputs.path }}
+          CHECK_LINKS: ${{ inputs.check-links }}
+        run: |
+          cat > /tmp/CheckDiscovery.mjs <<'SCRIPT'
+          import { readFile, access } from "node:fs/promises";
+          import { join } from "node:path";
+
+          const dir = process.env.TARGET_DIR || ".";
+          const checkLinks = process.env.CHECK_LINKS !== "false";
+          const failures = [];
+          const warnings = [];
+
+          const exists = async (p) => access(p).then(() => true, () => false);
+
+          const shortPath = join(dir, "llms.txt");
+          if (!(await exists(shortPath))) {
+            console.error(`FAIL  ${shortPath} is missing — the repo has no machine-discovery entry point.`);
+            process.exit(1);
+          }
+          const short = await readFile(shortPath, "utf8");
+          if (!short.trim()) failures.push(`${shortPath} is empty`);
+
+          const lines = short.split("\n").filter((l) => l.trim());
+          if (!lines[0]?.startsWith("# ")) {
+            failures.push(`${shortPath} must open with an "# H1" title (llms.txt spec)`);
+          }
+          if (!lines.slice(0, 12).some((l) => l.startsWith("> "))) {
+            // Style nit, not a breakage: a plain paragraph still parses.
+            warnings.push(`${shortPath} has no "> summary" blockquote after the H1 (llms.txt spec)`);
+          }
+          if (lines.length < 2) {
+            failures.push(`${shortPath} has a title but no description`);
+          }
+
+          const fullPath = join(dir, "llms-full.txt");
+          if (await exists(fullPath)) {
+            const full = await readFile(fullPath, "utf8");
+            if (!full.startsWith(`${short.trim()}\n`) && !full.startsWith(short)) {
+              failures.push(`${fullPath} must embed ${shortPath} verbatim at the top`);
+            }
+          }
+
+          if (checkLinks) {
+            const urls = [
+              ...new Set(
+                (short.match(/https?:\/\/[^\s)<>\]"'`]+/g) || []).map((u) =>
+                  u.replace(/[.,;:]+$/, ""),
+                ),
+              ),
+            ];
+            console.log(`Checking ${urls.length} unique link(s) in ${shortPath}\n`);
+
+            const probe = async (url) => {
+              for (const method of ["HEAD", "GET"]) {
+                try {
+                  const res = await fetch(url, {
+                    method,
+                    redirect: "follow",
+                    signal: AbortSignal.timeout(20000),
+                    headers: { "user-agent": "decionis-discovery-check" },
+                  });
+                  if (res.status < 400) return { ok: true, status: res.status };
+                  if (method === "GET") return { ok: false, status: res.status };
+                } catch (error) {
+                  const code = error?.cause?.code || error?.code || error?.name;
+                  if (code === "ENOTFOUND" || code === "EAI_AGAIN") {
+                    return { ok: false, dns: true, code };
+                  }
+                  if (method === "GET") return { ok: false, transient: true, code };
+                }
+              }
+              return { ok: false, transient: true };
+            };
+
+            const queue = [...urls];
+            const runner = async () => {
+              while (queue.length) {
+                const url = queue.shift();
+                const result = await probe(url);
+                if (result.ok) {
+                  console.log(`ok    ${result.status}  ${url}`);
+                } else if (result.dns) {
+                  console.log(`FAIL  DNS   ${url}  (${result.code} — host does not resolve)`);
+                  failures.push(`${url} — host does not resolve (${result.code})`);
+                } else if (result.status === 404 || result.status === 410) {
+                  console.log(`FAIL  ${result.status}  ${url}`);
+                  failures.push(`${url} — returned ${result.status}`);
+                } else {
+                  const label = result.status || result.code || "unreachable";
+                  console.log(`warn  ${label}  ${url}`);
+                  warnings.push(`${url} — ${label}`);
+                }
+              }
+            };
+            await Promise.all(Array.from({ length: 6 }, runner));
+          }
+
+          console.log("");
+          for (const warning of warnings) console.log(`::warning::discovery: ${warning}`);
+          if (failures.length) {
+            for (const failure of failures) console.log(`::error::discovery: ${failure}`);
+            console.error(`\n${failures.length} discovery failure(s).`);
+            process.exit(1);
+          }
+          console.log(`Discovery assets OK${warnings.length ? ` (${warnings.length} warning(s))` : ""}.`);
+          SCRIPT
+          node /tmp/CheckDiscovery.mjs
