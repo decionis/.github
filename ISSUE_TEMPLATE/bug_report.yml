@@ -20,6 +20,7 @@ body:
       options:
         - "govern — CI/CD Action Gate"
         - "mcp — Agent Tool Control (MCP server)"
+        - "agent-safe-pipeline — Reference architecture"
         - "presence-go — Presence Go SDK and CLI"
         - "presence-swift — Presence Swift SDK"
         - "kong-plugin-presence — Kong Gateway plugin"
