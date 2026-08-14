@@ -6,6 +6,6 @@ contact_links:
   - name: "💬 Product questions & support"
     url: "https://decionis.com/contact?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery"
     about: "Questions about the hosted platform, integrations, or your account."
-  - name: "🕹️ Try the Board (playground)"
-    url: "https://board.decionis.com/?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery"
+  - name: "🕹️ Try the Sandbox (no account needed)"
+    url: "https://decionis.com/sandbox?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery"
     about: "Run live policy checks and inspect signed Decision Dossiers in your browser."
