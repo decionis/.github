@@ -1,6 +1,6 @@
 # Security Policy
 
-Decionis is an execution-control layer: teams rely on our verdicts and signed Decision Dossiers to gate high-stakes actions. Security reports are our highest-priority inbound, and we are grateful for them.
+Decionis is the independent Execution Authority for high-stakes actions: teams rely on our verdicts, single-use execution grants, and signed Decision Dossiers to gate what runs. Security reports are our highest-priority inbound, and we are grateful for them.
 
 ## Reporting a vulnerability
 
@@ -8,7 +8,7 @@ Decionis is an execution-control layer: teams rely on our verdicts and signed De
 
 Email **[security@decionis.com](mailto:security@decionis.com)** with:
 
-- The affected package (`mcp`, `govern`, `sdk`, `verify`) or hosted surface, and its version.
+- The affected repository or package (`govern`, `mcp`, `docker`, `agent-safe-pipeline`, `steward`, a `shield-*` or `presence-*` SDK, or an `@decionis/*` npm package) or hosted surface, and its version.
 - Steps to reproduce, or a proof of concept.
 - Your assessment of impact (what an attacker gains).
 - Any constraints on disclosure timing you'd like us to know about.
@@ -31,9 +31,9 @@ We credit reporters in release notes and advisories unless you prefer to stay an
 
 **In scope**
 
-- All public repositories under [github.com/decionis](https://github.com/decionis), including `mcp`, `govern`, `sdk`, and `verify`.
-- The hosted platform at `decionis.com` and `board.decionis.com` — tested only against **your own workspace or the sandbox**.
-- Anything affecting **dossier integrity**: signature-verification bypass, verdict tampering, or non-determinism in policy evaluation. Treat these as highest severity.
+- All public repositories under [github.com/decionis](https://github.com/decionis), including `govern`, `mcp`, `docker`, `agent-safe-pipeline`, `steward`, and the `shield-*` and `presence-*` SDKs, plus the published `@decionis/*` npm packages.
+- The hosted platform at `decionis.com` and `presence.decionis.com` — tested only against **your own workspace or the sandbox**.
+- Anything affecting **decision integrity**: signature-verification bypass, verdict tampering, replay or reuse of a single-use execution grant, or non-determinism in policy evaluation. Treat these as highest severity.
 
 **Out of scope**
 

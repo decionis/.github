@@ -20,10 +20,15 @@ body:
       options:
         - "govern — CI/CD Action Gate"
         - "mcp — Agent Tool Control (MCP server)"
+        - "docker — Agents in Docker (MCP container, Desktop extension)"
         - "agent-safe-pipeline — Reference architecture"
+        - "steward — Customer-ops decisioning"
+        - "shield-js — Shield TypeScript SDK"
+        - "shield-swift — ShieldKit for Swift"
         - "presence-go — Presence Go SDK and CLI"
         - "presence-swift — Presence Swift SDK"
         - "kong-plugin-presence — Kong Gateway plugin"
+        - "@decionis/sdk or @decionis/verify (npm)"
         - "other / not sure"
     validations:
       required: true
@@ -32,8 +37,8 @@ body:
     id: version
     attributes:
       label: "Package version"
-      description: "The npm version, Action tag, or CLI `--version` output."
-      placeholder: "e.g. decionis/govern@v1.9.3 or presence-go v0.2.0"
+      description: "The npm version, Action tag, image tag, or CLI `--version` output."
+      placeholder: "e.g. decionis/govern@v1.9.3, @decionis/mcp 0.1.2, or presence-go v0.2.0"
     validations:
       required: true
 
@@ -63,9 +68,12 @@ body:
       options:
         - "GitHub Actions"
         - "Other CI (GitLab, Jenkins, CircleCI, …)"
-        - "MCP client (Claude, Cursor, or another agent runtime)"
+        - "MCP client (Claude Code, Codex, Copilot, Cursor, or another agent runtime)"
+        - "Docker / Dev Container / Docker Desktop extension"
+        - "Shopify storefront / checkout"
         - "Server / backend application"
         - "Local CLI"
+        - "iOS / Chrome (Shield)"
         - "Other"
     validations:
       required: true
@@ -88,7 +96,7 @@ body:
     attributes:
       label: "Decision Dossier ID (if applicable)"
       description: "The dossier ID from the verdict involved. Never paste the full payload of a private dossier."
-      placeholder: "dsr_…"
+      placeholder: "e.g. DSR-COM-10492 or dos_…"
 
   - type: textarea
     id: logs

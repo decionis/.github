@@ -18,10 +18,15 @@ body:
       options:
         - "govern — CI/CD Action Gate"
         - "mcp — Agent Tool Control (MCP server)"
+        - "docker — Agents in Docker (MCP container, Desktop extension)"
         - "agent-safe-pipeline — Reference architecture"
+        - "steward — Customer-ops decisioning"
+        - "shield-js — Shield TypeScript SDK"
+        - "shield-swift — ShieldKit for Swift"
         - "presence-go — Presence Go SDK and CLI"
         - "presence-swift — Presence Swift SDK"
         - "kong-plugin-presence — Kong Gateway plugin"
+        - "@decionis/sdk or @decionis/verify (npm)"
         - "new package / cross-cutting"
     validations:
       required: true
@@ -49,6 +54,8 @@ body:
       options:
         - "GitHub Actions / CI pipelines"
         - "MCP clients / agent runtimes"
+        - "Docker / Dev Containers"
+        - "Commerce (Shopify) / checkout"
         - "Server / backend applications"
         - "Local CLI"
         - "Multiple / other"

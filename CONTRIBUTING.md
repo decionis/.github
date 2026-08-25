@@ -1,6 +1,6 @@
 # Contributing to Decionis
 
-Thanks for your interest in improving Decionis — the deterministic decision layer between intent and execution. We welcome bug reports, feature proposals, policy templates, connectors, documentation, and code across all public repositories in this organization.
+Thanks for your interest in improving Decionis — the independent Execution Authority between intent and execution. We welcome bug reports, feature proposals, policy templates, connectors, documentation, and code across all public repositories in this organization.
 
 This guide covers organization-wide conventions. Individual repositories may add their own setup and test instructions in their `README.md` or a local `CONTRIBUTING.md`, which take precedence.
 
@@ -17,7 +17,7 @@ This guide covers organization-wide conventions. Individual repositories may add
 1. **Be excellent to each other.** All participation is governed by our [Code of Conduct](CODE_OF_CONDUCT.md).
 2. **Issue first for non-trivial changes.** Open or claim an issue before starting significant work, so we can agree on direction and nobody duplicates effort. Typo and small doc fixes can go straight to a PR.
 3. **One PR, one concern.** Small, focused pull requests get reviewed quickly; grab-bag PRs stall.
-4. **Determinism is the product.** Policy evaluation must stay deterministic — same input, same verdict. Changes that could affect verdict evaluation, signing, or dossier output must keep dossiers verifiable — check one produced by your change via its `verify-url` or the [dossier verification page](https://decionis.com/verify/decision-dossiers?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery) — and the PR template asks you to confirm this.
+4. **Determinism is the product.** Policy evaluation must stay deterministic — same input, same verdict. Changes that could affect verdict evaluation, execution grants, signing, or dossier output must keep dossiers verifiable — check one produced by your change via its `verify-url` or the [dossier verification page](https://decionis.com/verify/decision-dossiers?utm_source=github&utm_medium=org_readme&utm_campaign=dev_discovery) — and the PR template asks you to confirm this.
 
 ## Development workflow
 
@@ -30,7 +30,7 @@ This guide covers organization-wide conventions. Individual repositories may add
 
 ## What we're especially glad to receive
 
-- **Policy templates** — real-world gate patterns (AI-generated PR gating, Terraform apply checks, refund limits) for the Policy Exchange.
+- **Policy templates** — real-world gate patterns (AI-generated PR gating, Terraform apply checks, refund and spending limits, margin floors) for the Policy Exchange.
 - **Integrations & connectors** — new CI providers, MCP client runtimes, or platform surfaces.
 - **Reproductions** — a failing minimal example is a first-class contribution, even without a fix.
 - **Docs** — anything that shortens the path from "landed on the repo" to "first verdict".
